@@ -23,10 +23,13 @@ def url_check(url):
 	return url
 
 def flood(key1, key2):
+	f = open('user_headers.txt','r').read().splitlines()
+	x = ''.join(random.choices(f))
+	header = {"User-Agent": x}
 	rmail = names.get_full_name().replace(' ','')+'@gmail.com'
 	rpass = ''.join(random.choices(string.digits+string.ascii_letters,k=random.randint(8,14)))
 	data = {key1:rmail,key2:rpass}
-	r = requests.post(url+post_fname, data=data)
+	r = requests.post(url+post_fname, headers=header,data=data)
 
 def loading(amount):
 	for i in tqdm(range(0, int(amount)), desc='Flooding'):
