@@ -4,15 +4,23 @@ from tqdm import tqdm
 
 amount = int(input('Enter amount to flood: '))
 url = input('Enter url: ')
+
 r = requests.get(url)
 soup = BeautifulSoup(r.content, features="html.parser")
 form = soup.find('form')
 post_fname = form['action']
-
 input1 = form.find('input', type='text')
 input2 = form.find('input', type='password')
 key1=input1['name']
 key2=input2['name']
+
+def url_check(url):
+	url2 = url+'/'
+	if(url == url2):
+		pass
+	else:
+		url+='/'
+	return url
 
 def flood(key1, key2):
 	rmail = names.get_full_name().replace(' ','')+'@gmail.com'
@@ -24,6 +32,7 @@ def loading(amount):
 	for i in tqdm(range(0, int(amount)), desc='Flooding'):
 		time.sleep(.1)
 
+url = url_check(url)
 threads = []
 threading.Thread(target=loading, args=[amount]).start()
 for i in range(amount):
